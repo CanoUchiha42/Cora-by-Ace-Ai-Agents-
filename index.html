@@ -105,5 +105,6 @@ $("#roiCta").addEventListener("click",()=>{let r=roi();$("#message").value="Ich 
 const form=$("#leadForm"),status=$("#formStatus");
 form.addEventListener("submit",async e=>{e.preventDefault();status.className="status";status.textContent="";if(!form.reportValidity())return;const hp=form.elements.website_check;if(hp.value){return}const btn=form.querySelector("button[type=submit]"),old=btn.textContent;btn.disabled=true;btn.textContent="Wird übermittelt …";try{const data=new URLSearchParams();new FormData(form).forEach((v,k)=>data.append(k,String(v)));data.append("source","Cora-by-Ace-Ai-Agents");data.append("page",location.href);data.append("submitted_at_client",new Date().toISOString());await fetch(GOOGLE_SHEETS_WEBHOOK_URL,{method:"POST",mode:"no-cors",body:data});form.reset();status.className="status ok";status.textContent="Ihre Anfrage wurde übermittelt. Vielen Dank.";status.scrollIntoView({behavior:"smooth",block:"nearest"})}catch(err){console.error(err);status.className="status err";status.textContent="Die Anfrage konnte gerade nicht übermittelt werden. Bitte versuchen Sie es erneut."}finally{btn.disabled=false;btn.textContent=old}});
 </script>
+<script src="demo-enhanced.js?v=20260926-1"></script>
 </body>
 </html>
